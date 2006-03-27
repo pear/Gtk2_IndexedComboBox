@@ -21,6 +21,14 @@
 */
 class Gtk2_IndexedComboBox extends GtkComboBox
 {
+    /**
+    *   The cell renderer for the text
+    *   @var GtkCellRenderer
+    */
+    protected $renderer = null;
+
+
+
     public function __construct($arData = null)
     {
         parent::__construct();
@@ -28,9 +36,9 @@ class Gtk2_IndexedComboBox extends GtkComboBox
         $this->set_model($model);
 
         //show the second column only
-        $renderer = new GtkCellRendererText();
-        $this->pack_start($renderer);
-        $this->set_attributes($renderer, 'text', 1);
+        $this->renderer = new GtkCellRendererText();
+        $this->pack_start($this->renderer);
+        $this->set_attributes($this->renderer, 'text', 1);
 
         if ($arData !== null) {
             $this->set_array($arData);
@@ -94,6 +102,18 @@ class Gtk2_IndexedComboBox extends GtkComboBox
         //That's the better one (that doesn't work as of 2006-03-04)
         return $this->get_model()->get_value($this->get_active_iter(), 1);
     }//public function get_active_text()
+
+
+
+    /**
+    *   Returns the default cell renderer.
+    *
+    *   @return GtkCellRenderer The default cell renderer
+    */
+    public function get_cell_renderer()
+    {
+        return $this->renderer;
+    }//public function get_cell_renderer()
 
 
 
@@ -241,6 +261,12 @@ class Gtk2_IndexedComboBox extends GtkComboBox
 
     public function getActiveText() {
         return $this->get_active_text();
+    }
+
+
+
+    public function getCellRenderer() {
+        return $this->get_cell_renderer();
     }
 
 

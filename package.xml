@@ -24,11 +24,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <active>yes</active>
  </lead>
 
- <date>2006-03-10</date>
+ <date>2006-03-27</date>
 
  <version>
-  <release>0.0.2</release>
-  <api>0.0.2</api>
+  <release>0.0.3</release>
+  <api>0.0.3</api>
  </version>
 
  <stability>
@@ -38,8 +38,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
 
  <notes>
-  - Added set_active_key
-  - Added camelCase method names as PEAR-compatible aliases
+  - Added get_cell_renderer() method
  </notes>
 
  <contents>
@@ -57,7 +56,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <required>
    <php>
     <min>5.1</min>
-    <max>6.0.0</max>
+    <max>5.999.999</max>
    </php>
    <pearinstaller>
     <min>1.4.1</min>
@@ -72,6 +71,22 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <phprelease/>
 
  <changelog>
+  <release>
+   <version>
+    <release>0.0.3</release>
+    <api>0.0.3</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2006-03-27</date>
+   <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+   <notes>
+    - Added get_cell_renderer() method
+   </notes>
+  </release>
+
   <release>
    <version>
     <release>0.0.2</release>
