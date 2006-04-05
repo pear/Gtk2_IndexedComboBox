@@ -76,14 +76,19 @@ class Gtk2_IndexedComboBox extends GtkComboBox
 
 
     /**
-    *   Returns the id of the active entry
+    *   Returns the id of the active entry.
+    *   If there is no active key, NULL will be returned.
     *
     *   @return string  The id/key of the selected entry
     */
     public function get_active_key()
     {
+        $nActive = $this->get_active();
+        if ($nActive === -1) {
+            return null;
+        }
         //workaround bug in php-gtk2: get_active_iter wants a parameter instead of giving one
-        return $this->get_model()->get_value($this->get_model()->get_iter($this->get_active()), 0);
+        return $this->get_model()->get_value($this->get_model()->get_iter($nActive), 0);
         //That's the better one (that doesn't work as of 2006-03-04)
         return $this->get_model()->get_value($this->get_active_iter(), 0);
     }//public function get_active_key()
@@ -92,16 +97,43 @@ class Gtk2_IndexedComboBox extends GtkComboBox
 
     /**
     *   Returns the string of the active entry.
+    *   If there is no active entry, NULL will be returned.
     *
     *   @return string  The string value of the selected entry
     */
     public function get_active_text()
     {
+        $nActive = $this->get_active();
+        if ($nActive === -1) {
+            return null;
+        }
         //workaround bug in php-gtk2: get_active_iter wants a parameter instead of giving one
-        return $this->get_model()->get_value($this->get_model()->get_iter($this->get_active()), 1);
+        return $this->get_model()->get_value($this->get_model()->get_iter($nActive), 1);
         //That's the better one (that doesn't work as of 2006-03-04)
         return $this->get_model()->get_value($this->get_active_iter(), 1);
     }//public function get_active_text()
+
+
+
+    /**
+    *   Returns an array with all key/value pairs.
+    *
+    *   @return array Array with key/value pairs in the model
+    */
+    public function get_array()
+    {
+        $ar = array();
+
+        $model = $this->get_model();
+        $iter = $model->get_iter_first();
+        if ($iter !== null) {
+            do {
+                $ar[$model->get_value($iter, 0)] = $model->get_value($iter, 1);
+            } while (($iter = $model->iter_next($iter)) !== null);
+        }
+
+        return $ar;
+    }//public function get_array()
 
 
 
@@ -120,6 +152,7 @@ class Gtk2_IndexedComboBox extends GtkComboBox
     /**
     *   Inserts a single key/value pair at a certain position into the list.
     *
+    *   @param int      $nPosition  The position to insert the values at
     *   @param string   $strId      The id to append
     *   @param string   $strValue   The value to append
     */
@@ -186,15 +219,17 @@ class Gtk2_IndexedComboBox extends GtkComboBox
     {
         $model = $this->get_model();
         $iter = $model->get_iter_first();
-        do {
-            if ($model->get_value($iter, 0) == $strId) {
-                break;
-            }
-        } while (($iter = $model->iter_next($iter)) !== null);
-
         if ($iter !== null) {
-            $model->remove($iter);
-            return true;
+            do {
+                if ($model->get_value($iter, 0) == $strId) {
+                    break;
+                }
+            } while (($iter = $model->iter_next($iter)) !== null);
+
+            if ($iter !== null) {
+                $model->remove($iter);
+                return true;
+            }
         }
         return false;
     }//public function remove_key($strId)
@@ -210,17 +245,24 @@ class Gtk2_IndexedComboBox extends GtkComboBox
     */
     public function set_active_key($strId)
     {
-        $model = $this->get_model();
-        $iter = $model->get_iter_first();
-        do {
-            if ($model->get_value($iter, 0) == $strId) {
-                break;
-            }
-        } while (($iter = $model->iter_next($iter)) !== null);
-
-        if ($iter !== null) {
-            $this->set_active_iter($iter);
+        if ($strId === null) {
+            $this->set_active(-1);
             return true;
+        }
+
+        $model = $this->get_model();
+        $iter  = $model->get_iter_first();
+        if ($iter !== null) {
+            do {
+                if ($model->get_value($iter, 0) == $strId) {
+                    break;
+                }
+            } while (($iter = $model->iter_next($iter)) !== null);
+
+            if ($iter !== null) {
+                $this->set_active_iter($iter);
+                return true;
+            }
         }
         return false;
     }//public function set_active_key($strId)
@@ -261,6 +303,12 @@ class Gtk2_IndexedComboBox extends GtkComboBox
 
     public function getActiveText() {
         return $this->get_active_text();
+    }
+
+
+
+    public function getArray() {
+        return $this->get_array();
     }
 
 
