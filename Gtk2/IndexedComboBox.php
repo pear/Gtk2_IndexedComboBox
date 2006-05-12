@@ -1,4 +1,6 @@
 <?php
+require_once 'Gtk2/IndexedComboBox/Model.php';
+
 /**
 *   Indexed Gtk2 combo box similar to the HTML select box.
 *   Lets you not only store values as the normal GtkComboBox,
@@ -32,7 +34,7 @@ class Gtk2_IndexedComboBox extends GtkComboBox
     public function __construct($arData = null)
     {
         parent::__construct();
-        $model = new GtkListStore(Gtk::TYPE_STRING, Gtk::TYPE_STRING);
+        $model = new Gtk2_IndexedComboBox_Model();
         $this->set_model($model);
 
         //show the second column only
@@ -55,7 +57,7 @@ class Gtk2_IndexedComboBox extends GtkComboBox
     */
     public function append($strId, $strValue)
     {
-        $this->get_model()->append(array($strId, $strValue));
+        $this->get_model()->append($strId, $strValue);
     }//public function append_array($strId, $strValue)
 
 
@@ -67,10 +69,7 @@ class Gtk2_IndexedComboBox extends GtkComboBox
     */
     public function append_array($arData)
     {
-        $model = $this->get_model();
-        foreach ($arData as $strId => &$strValue) {
-            $model->append(array($strId, $strValue));
-        }
+        $this->get_model()->append_array($arData);
     }//public function append_array($arData)
 
 
@@ -88,9 +87,9 @@ class Gtk2_IndexedComboBox extends GtkComboBox
             return null;
         }
         //workaround bug in php-gtk2: get_active_iter wants a parameter instead of giving one
-        return $this->get_model()->get_value($this->get_model()->get_iter($nActive), 0);
+        return $this->get_model()->get_key($this->get_model()->get_iter($nActive));
         //That's the better one (that doesn't work as of 2006-03-04)
-        return $this->get_model()->get_value($this->get_active_iter(), 0);
+        return $this->get_model()->get_key($this->get_active_iter());
     }//public function get_active_key()
 
 
@@ -108,9 +107,9 @@ class Gtk2_IndexedComboBox extends GtkComboBox
             return null;
         }
         //workaround bug in php-gtk2: get_active_iter wants a parameter instead of giving one
-        return $this->get_model()->get_value($this->get_model()->get_iter($nActive), 1);
+        return $this->get_model()->get_text($this->get_model()->get_iter($nActive));
         //That's the better one (that doesn't work as of 2006-03-04)
-        return $this->get_model()->get_value($this->get_active_iter(), 1);
+        return $this->get_model()->get_text($this->get_active_iter());
     }//public function get_active_text()
 
 
@@ -122,17 +121,7 @@ class Gtk2_IndexedComboBox extends GtkComboBox
     */
     public function get_array()
     {
-        $ar = array();
-
-        $model = $this->get_model();
-        $iter = $model->get_iter_first();
-        if ($iter !== null) {
-            do {
-                $ar[$model->get_value($iter, 0)] = $model->get_value($iter, 1);
-            } while (($iter = $model->iter_next($iter)) !== null);
-        }
-
-        return $ar;
+        return $this->get_model()->get_array();
     }//public function get_array()
 
 
@@ -158,7 +147,7 @@ class Gtk2_IndexedComboBox extends GtkComboBox
     */
     public function insert($nPosition, $strId, $strValue)
     {
-        $this->get_model()->insert($nPosition, array($strId, $strValue));
+        $this->get_model()->insert($nPosition, $strId, $strValue);
     }//public function insert($nPosition, $strId, $strValue)
 
 
@@ -171,10 +160,7 @@ class Gtk2_IndexedComboBox extends GtkComboBox
     */
     public function insert_array($nPosition, $arData)
     {
-        $model = $this->get_model();
-        foreach ($arData as $strId => &$strValue) {
-            $model->insert($nPosition++, array($strId, $strValue));
-        }
+        $this->get_model()->insert_array($nPosition, $arData);
     }//public function insert_array($nPosition, $arData)
 
 
@@ -187,7 +173,7 @@ class Gtk2_IndexedComboBox extends GtkComboBox
     */
     public function prepend($strId, $strValue)
     {
-        $this->get_model()->prepend(array($strId, $strValue));
+        $this->get_model()->prepend($strId, $strValue);
     }//public function prepend($strId, $strValue)
 
 
@@ -199,11 +185,7 @@ class Gtk2_IndexedComboBox extends GtkComboBox
     */
     public function prepend_array($arData)
     {
-        $nPosition = 0;
-        $model = $this->get_model();
-        foreach ($arData as $strId => &$strValue) {
-            $model->insert($nPosition++, array($strId, $strValue));
-        }
+        $this->get_model()->prepend_array($arData);
     }//public function prepend_array($arData)
 
 
@@ -217,21 +199,7 @@ class Gtk2_IndexedComboBox extends GtkComboBox
     */
     public function remove_key($strId)
     {
-        $model = $this->get_model();
-        $iter = $model->get_iter_first();
-        if ($iter !== null) {
-            do {
-                if ($model->get_value($iter, 0) == $strId) {
-                    break;
-                }
-            } while (($iter = $model->iter_next($iter)) !== null);
-
-            if ($iter !== null) {
-                $model->remove($iter);
-                return true;
-            }
-        }
-        return false;
+        return $this->get_model()->remove_key($strId);
     }//public function remove_key($strId)
 
 
@@ -254,7 +222,7 @@ class Gtk2_IndexedComboBox extends GtkComboBox
         $iter  = $model->get_iter_first();
         if ($iter !== null) {
             do {
-                if ($model->get_value($iter, 0) == $strId) {
+                if ($model->get_key($iter) == $strId) {
                     break;
                 }
             } while (($iter = $model->iter_next($iter)) !== null);
@@ -277,8 +245,7 @@ class Gtk2_IndexedComboBox extends GtkComboBox
     */
     public function set_array($arData)
     {
-        $this->get_model()->clear();
-        return $this->append_array($arData);
+        return $this->get_model()->set_array($arData);
     }//public function set_array($arData)
 
 

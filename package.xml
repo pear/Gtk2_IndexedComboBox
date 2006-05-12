@@ -7,7 +7,7 @@ http://pear.php.net/dtd/tasks-1.0.xsd
 http://pear.php.net/dtd/package-2.0
 http://pear.php.net/dtd/package-2.0.xsd">
 
-    <name>Gtk2_IndexedComboBox</name>
+ <name>Gtk2_IndexedComboBox</name>
  <channel>pear.php.net</channel>
  <summary>Indexed Gtk2 combo box similar to the HTML select box.</summary>
  <description>
@@ -24,11 +24,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <active>yes</active>
  </lead>
 
- <date>2006-04-05</date>
+ <date>2006-05-13</date>
 
  <version>
-  <release>0.1.0</release>
-  <api>0.1.0</api>
+  <release>0.2.0</release>
+  <api>0.2.0</api>
  </version>
 
  <stability>
@@ -38,21 +38,27 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
 
  <notes>
-  - NULL values can be used to unset the value
-  - get_array() method
-  - unit tests
+  Separated comobobox and model - the model has its own class now
+  and can be used independently of the combobox, e.g. to
+  use it in a GtkComboBox generated with Glade.
  </notes>
 
  <contents>
   <dir name="/" baseinstalldir="/">
    <dir name="Gtk2">
     <file name="IndexedComboBox.php" role="php"/>
+    <dir name="IndexedComboBox">
+     <file name="Model.php" role="php"/>
+    </dir>
    </dir>
    <dir name="examples">
-    <file name="normal.php" role="doc"/>
+    <file name="glade.glade" role="doc"/>
+    <file name="glade.phpw" role="doc"/>
+    <file name="normal.phpw" role="doc"/>
    </dir>
    <dir name="tests">
     <file name="Gtk2_IndexedComboBoxTest.php" role="test"/>
+    <file name="Gtk2_IndexedComboBox_ModelTest.php" role="test"/>
    </dir>
   </dir>
  </contents>
@@ -76,6 +82,24 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <phprelease/>
 
  <changelog>
+  <release>
+   <version>
+    <release>0.2.0</release>
+    <api>0.2.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2006-05-13</date>
+   <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+   <notes>
+  Separated comobobox and model - the model has its own class now
+  and can be used independently of the combobox, e.g. to
+  use it in a GtkComboBox generated with Glade.
+   </notes>
+  </release>
+
   <release>
    <version>
     <release>0.1.0</release>

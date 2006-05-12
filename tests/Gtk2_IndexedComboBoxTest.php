@@ -7,9 +7,6 @@ if (!defined("PHPUnit2_MAIN_METHOD")) {
 require_once "PHPUnit2/Framework/TestCase.php";
 require_once "PHPUnit2/Framework/TestSuite.php";
 
-// You may remove the following line when all tests have been implemented.
-require_once "PHPUnit2/Framework/IncompleteTestError.php";
-
 require_once "Gtk2/IndexedComboBox.php";
 
 /**

@@ -1,0 +1,36 @@
+<?php
+require_once 'Gtk2/IndexedComboBox/Model.php';
+
+$glade = new GladeXML(dirname(__FILE__) . '/glade.glade');
+$glade->signal_autoconnect();
+
+$combo = $glade->get_widget('cmbNormal');
+$combo->connect('changed', 'comboChanged');
+//show the second column only
+$renderer = new GtkCellRendererText();
+$combo->pack_start($renderer);
+$combo->set_attributes($renderer, 'text', 1);
+
+
+$mod = new Gtk2_IndexedComboBox_Model();
+$combo->set_model($mod);
+
+$mod->append(1, 'One');
+$mod->append_array(array(2 => 'Two', 3 => 'Three'));
+$mod->prepend(4, 'Four');
+
+
+
+function comboChanged($combo)
+{
+    $nActive = $combo->get_active();
+    $iter    = $combo->get_model()->get_iter($nActive);
+
+    $key     = $combo->get_model()->get_key($iter);
+    $text    = $combo->get_model()->get_text($iter);
+
+    echo 'Selected: ' . $key . ' => ' . $text . "\r\n";
+}
+
+Gtk::main();
+?>
