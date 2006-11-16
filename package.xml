@@ -13,8 +13,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <description>
   Indexed Gtk2 combo box similar to the HTML select box.
   Lets you not only store values as the normal GtkComboBox,
-  but associated key/value pairs as well. The active key can be easily
-  received with get_active_key.
+  but associated key/value pairs as well.
  </description>
 
  <lead>
@@ -24,23 +23,21 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <active>yes</active>
  </lead>
 
- <date>2006-05-13</date>
+ <date>2006-11-16</date>
 
  <version>
-  <release>0.2.0</release>
-  <api>0.2.0</api>
+  <release>1.0.0</release>
+  <api>1.0.0</api>
  </version>
 
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
 
  <notes>
-  Separated comobobox and model - the model has its own class now
-  and can be used independently of the combobox, e.g. to
-  use it in a GtkComboBox generated with Glade.
+  Marking as stable
  </notes>
 
  <contents>
@@ -82,6 +79,22 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <phprelease/>
 
  <changelog>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2006-11-16</date>
+   <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+   <notes>
+    Marking as stable
+   </notes>
+  </release>
+
   <release>
    <version>
     <release>0.2.0</release>
