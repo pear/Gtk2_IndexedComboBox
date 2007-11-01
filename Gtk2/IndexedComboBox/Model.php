@@ -1,22 +1,35 @@
 <?php
 /**
-*   Indexed Gtk2 combo box model. Can be used stand-alone
-*   e.g. as model for a GtkComboBox from a glade file.
+* Indexed Gtk2 combo box similar to the HTML select box.
 *
-*   Both key and values can be strings or integers.
+* PHP Versions 5
 *
-*   @category   Gtk2
-*   @package    Gtk2_IndexedComboBox
-*   @author     Christian Weiske <cweiske@php.net>
-*   @license    LGPL
-*   @version    CVS: $Id$
+* @category Gtk2
+* @package  Gtk2_IndexedComboBox
+* @author   Christian Weiske <cweiske@php.net>
+* @license  http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
+* @version  CVS: $Id$
+* @link     http://pear.php.net/package/Gtk2_IndexedComboBox
+*/
+
+/**
+* Indexed Gtk2 combo box model. Can be used stand-alone
+* e.g. as model for a GtkComboBox from a glade file.
+*
+* Both key and values can be strings or integers.
+*
+* @category Gtk2
+* @package  Gtk2_IndexedComboBox
+* @author   Christian Weiske <cweiske@php.net>
+* @license  http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
+* @link     http://pear.php.net/package/Gtk2_IndexedComboBox
 */
 class Gtk2_IndexedComboBox_Model extends GtkListStore
 {
     /**
-    *   Constructor.
+    * Constructor.
     *
-    *   @param array    $arData     If wished, you can set the initial data here.
+    * @param array $arData If wished, you can set the initial data here.
     */
     public function __construct($arData = null)
     {
@@ -29,10 +42,12 @@ class Gtk2_IndexedComboBox_Model extends GtkListStore
 
 
     /**
-    *   Appends a single key/value pair to the list.
+    * Appends a single key/value pair to the list.
     *
-    *   @param mixed    $strId      (string) id to append, or an array to append
-    *   @param string   $strValue   The value to append
+    * @param mixed  $strId    (string) id to append, or an array to append
+    * @param string $strValue The value to append
+    *
+    * @return void
     */
     public function append($strId, $strValue = null)
     {
@@ -46,9 +61,11 @@ class Gtk2_IndexedComboBox_Model extends GtkListStore
 
 
     /**
-    *   Appends an array (key and value) as data to the store.
+    * Appends an array (key and value) as data to the store.
     *
-    *   @param array    $arData     The array to append
+    * @param array $arData The array to append
+    *
+    * @return void
     */
     public function append_array($arData)
     {
@@ -60,11 +77,12 @@ class Gtk2_IndexedComboBox_Model extends GtkListStore
 
 
     /**
-    *   Returns the key/id of the given iter.
-    *   If $iter is NULL, this method returns NULL.
+    * Returns the key/id of the given iter.
+    * If $iter is NULL, this method returns NULL.
     *
-    *   @param GtkTreeIter  $iter   Iterator whose key shall be gotten.
-    *   @return string  The id/key of the selected entry
+    * @param GtkTreeIter $iter Iterator whose key shall be gotten.
+    *
+    * @return string The id/key of the selected entry
     */
     public function get_key($iter)
     {
@@ -77,11 +95,12 @@ class Gtk2_IndexedComboBox_Model extends GtkListStore
 
 
     /**
-    *   Returns the string of the given iter.
-    *   If $iter is NULL, this method returns NULL.
+    * Returns the string of the given iter.
+    * If $iter is NULL, this method returns NULL.
     *
-    *   @param GtkTreeIter  $iter   Iterator whose string shall be gotten.
-    *   @return string  The string value of the selected entry
+    * @param GtkTreeIter $iter Iterator whose string shall be gotten.
+    *
+    * @return string The string value of the selected entry
     */
     public function get_text($iter)
     {
@@ -94,9 +113,9 @@ class Gtk2_IndexedComboBox_Model extends GtkListStore
 
 
     /**
-    *   Returns an array with all key/value pairs.
+    * Returns an array with all key/value pairs.
     *
-    *   @return array Array with key/value pairs in the model
+    * @return array Array with key/value pairs in the model
     */
     public function get_array()
     {
@@ -115,12 +134,14 @@ class Gtk2_IndexedComboBox_Model extends GtkListStore
 
 
     /**
-    *   Inserts a single key/value pair (or an array) at
-    *   a certain position into the list.
+    * Inserts a single key/value pair (or an array) at
+    * a certain position into the list.
     *
-    *   @param int      $nPosition  The position to insert the values at
-    *   @param mixed    $strId      (string) id to append, or array to append
-    *   @param string   $strValue   The value to append
+    * @param int    $nPosition The position to insert the values at
+    * @param mixed  $strId     (string) id to append, or array to append
+    * @param string $strValue  The value to append
+    *
+    * @return void
     */
     public function insert($nPosition, $strId, $strValue = null)
     {
@@ -134,10 +155,12 @@ class Gtk2_IndexedComboBox_Model extends GtkListStore
 
 
     /**
-    *   Inserts an array (key and value) at a certain position into the list.
+    * Inserts an array (key and value) at a certain position into the list.
     *
-    *   @param int      $nPosition  The position to insert the array at
-    *   @param array    $arData     The array to append
+    * @param int   $nPosition The position to insert the array at
+    * @param array $arData    The array to append
+    *
+    * @return void
     */
     public function insert_array($nPosition, $arData)
     {
@@ -149,10 +172,12 @@ class Gtk2_IndexedComboBox_Model extends GtkListStore
 
 
     /**
-    *   Prepends a single key/value pair to the list.
+    * Prepends a single key/value pair to the list.
     *
-    *   @param mixed    $strId      (string) id to prepend, or array to prepend
-    *   @param string   $strValue   The value to append
+    * @param mixed  $strId    (string) id to prepend, or array to prepend
+    * @param string $strValue The value to append
+    *
+    * @return void
     */
     public function prepend($strId, $strValue = null)
     {
@@ -166,9 +191,11 @@ class Gtk2_IndexedComboBox_Model extends GtkListStore
 
 
     /**
-    *   Prepends an array (key and value) at the beginning of the store
+    * Prepends an array (key and value) at the beginning of the store
     *
-    *   @param array    $arData     The array to append
+    * @param array $arData The array to append
+    *
+    * @return void
     */
     public function prepend_array($arData)
     {
@@ -181,11 +208,11 @@ class Gtk2_IndexedComboBox_Model extends GtkListStore
 
 
     /**
-    *   Removes the first entry with the given key from the list.
+    * Removes the first entry with the given key from the list.
     *
-    *   @param string   $strId      The key of the entry to remove
+    * @param string $strId The key of the entry to remove
     *
-    *   @return boolean     True if an entry has been deleted
+    * @return boolean True if an entry has been deleted
     */
     public function remove_key($strId)
     {
@@ -208,10 +235,12 @@ class Gtk2_IndexedComboBox_Model extends GtkListStore
 
 
     /**
-    *   Sets an array (key and value) as data into the store.
-    *   Clears any previous entries.
+    * Sets an array (key and value) as data into the store.
+    * Clears any previous entries.
     *
-    *   @param array    $arData     The array to set
+    * @param array $arData The array to set
+    *
+    * @return void
     */
     public function set_array($arData)
     {
@@ -227,37 +256,97 @@ class Gtk2_IndexedComboBox_Model extends GtkListStore
 
 
 
-    public function appendArray($arData) {
+    /**
+    * Appends an array (key and value) as data to the store.
+    *
+    * Alias of @see append_array().
+    *
+    * @param array $arData The array to append
+    *
+    * @return void
+    */
+    public function appendArray($arData)
+    {
         return $this->append_array($arData);
     }
 
 
 
-    public function getArray() {
+    /**
+    * Returns an array with all key/value pairs.
+    *
+    * Alias of @see get_array().
+    *
+    * @return array Array with key/value pairs in the model
+    */
+    public function getArray()
+    {
         return $this->get_array();
     }
 
 
 
-    public function insertArray($nPosition, $arData) {
+    /**
+    * Inserts an array (key and value) at a certain position into the list.
+    *
+    * Alias of @see insert_array().
+    *
+    * @param int   $nPosition The position to insert the array at
+    * @param array $arData    The array to append
+    *
+    * @return void
+    */
+    public function insertArray($nPosition, $arData)
+    {
         return $this->insert_array($nPosition, $arData);
     }
 
 
 
-    public function prependArray($arData) {
+    /**
+    * Prepends an array (key and value) at the beginning of the store
+    *
+    * Alias of @see prepend_array().
+    *
+    * @param array $arData The array to append
+    *
+    * @return void
+    */
+    public function prependArray($arData)
+    {
         return $this->prepend_array($arData);
     }
 
 
 
-    public function removeKey($strId) {
+    /**
+    * Removes the first entry with the given key from the list.
+    *
+    * Alias of @see remove_key().
+    *
+    * @param string $strId The key of the entry to remove
+    *
+    * @return boolean True if an entry has been deleted
+    */
+    public function removeKey($strId)
+    {
         return $this->remove_key($strId);
     }
 
 
 
-    public function setArray($arData) {
+    /**
+    * Sets an array (key and value) as data into the store.
+    * Clears any previous entries.
+    *
+    * Alias of @see set_array().
+    *
+    * @param array $arData The array to set
+    *
+    * @return void
+    */
+    public function setArray($arData)
+    {
         return $this->set_array($arData);
     }
 

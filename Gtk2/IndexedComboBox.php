@@ -1,36 +1,53 @@
 <?php
+/**
+* Indexed Gtk2 combo box similar to the HTML select box.
+*
+* PHP Versions 5
+*
+* @category Gtk2
+* @package  Gtk2_IndexedComboBox
+* @author   Christian Weiske <cweiske@php.net>
+* @license  http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
+* @version  CVS: $Id$
+* @link     http://pear.php.net/package/Gtk2_IndexedComboBox
+*/
 require_once 'Gtk2/IndexedComboBox/Model.php';
 
 /**
-*   Indexed Gtk2 combo box similar to the HTML select box.
-*   Lets you not only store values as the normal GtkComboBox,
-*   but associated keys as well. The active key can be easily
-*   received with get_active_key.
+* Indexed Gtk2 combo box similar to the HTML select box.
+* Lets you not only store values as the normal GtkComboBox,
+* but associated keys as well. The active key can be easily
+* received with get_active_key.
 *
-*   It imitates the convenience methods of a text-based GtkComboBox
-*   that is constructed with GtkComboBox::new_text().
+* It imitates the convenience methods of a text-based GtkComboBox
+* that is constructed with GtkComboBox::new_text().
 *
-*   Both key and values can be strings or integers.
+* Both key and values can be strings or integers.
 *
-*   Method names aren't camelCase but with underscores to be close
-*   the naming of the original Gtk2 methods.
+* Method names aren't camelCase but with underscores to be close
+* the naming of the original Gtk2 methods.
 *
-*   @category   Gtk2
-*   @package    Gtk2_IndexedComboBox
-*   @author     Christian Weiske <cweiske@php.net>
-*   @license    LGPL
-*   @version    CVS: $Id$
+* @category Gtk2
+* @package  Gtk2_IndexedComboBox
+* @author   Christian Weiske <cweiske@php.net>
+* @license  http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
+* @link     http://pear.php.net/package/Gtk2_IndexedComboBox
 */
 class Gtk2_IndexedComboBox extends GtkComboBox
 {
     /**
-    *   The cell renderer for the text
-    *   @var GtkCellRenderer
+    * The cell renderer for the text
+    * @var GtkCellRenderer
     */
     protected $renderer = null;
 
 
 
+    /**
+    * Create a new instance
+    *
+    * @param array $arData Array of key-value pairs
+    */
     public function __construct($arData = null)
     {
         parent::__construct();
@@ -50,10 +67,12 @@ class Gtk2_IndexedComboBox extends GtkComboBox
 
 
     /**
-    *   Appends a single key/value pair to the list.
+    * Appends a single key/value pair to the list.
     *
-    *   @param string   $strId      The id to append
-    *   @param string   $strValue   The value to append
+    * @param string $strId    The id to append
+    * @param string $strValue The value to append
+    *
+    * @return void
     */
     public function append($strId, $strValue)
     {
@@ -63,9 +82,11 @@ class Gtk2_IndexedComboBox extends GtkComboBox
 
 
     /**
-    *   Appends an array (key and value) as data to the store.
+    * Appends an array (key and value) as data to the store.
     *
-    *   @param array    $arData     The array to append
+    * @param array $arData The array to append
+    *
+    * @return void
     */
     public function append_array($arData)
     {
@@ -75,10 +96,10 @@ class Gtk2_IndexedComboBox extends GtkComboBox
 
 
     /**
-    *   Returns the id of the active entry.
-    *   If there is no active key, NULL will be returned.
+    * Returns the id of the active entry.
+    * If there is no active key, NULL will be returned.
     *
-    *   @return string  The id/key of the selected entry
+    * @return string The id/key of the selected entry
     */
     public function get_active_key()
     {
@@ -86,8 +107,10 @@ class Gtk2_IndexedComboBox extends GtkComboBox
         if ($nActive === -1) {
             return null;
         }
-        //workaround bug in php-gtk2: get_active_iter wants a parameter instead of giving one
-        return $this->get_model()->get_key($this->get_model()->get_iter($nActive));
+        //workaround bug in php-gtk2: get_active_iter wants
+        // a parameter instead of giving one
+        $iter = $this->get_model()->get_iter($nActive);
+        return $this->get_model()->get_key($iter);
         //That's the better one (that doesn't work as of 2006-03-04)
         return $this->get_model()->get_key($this->get_active_iter());
     }//public function get_active_key()
@@ -95,10 +118,10 @@ class Gtk2_IndexedComboBox extends GtkComboBox
 
 
     /**
-    *   Returns the string of the active entry.
-    *   If there is no active entry, NULL will be returned.
+    * Returns the string of the active entry.
+    * If there is no active entry, NULL will be returned.
     *
-    *   @return string  The string value of the selected entry
+    * @return string The string value of the selected entry
     */
     public function get_active_text()
     {
@@ -106,8 +129,10 @@ class Gtk2_IndexedComboBox extends GtkComboBox
         if ($nActive === -1) {
             return null;
         }
-        //workaround bug in php-gtk2: get_active_iter wants a parameter instead of giving one
-        return $this->get_model()->get_text($this->get_model()->get_iter($nActive));
+        //workaround bug in php-gtk2: get_active_iter wants
+        // a parameter instead of giving one
+        $iter = $this->get_model()->get_iter($nActive);
+        return $this->get_model()->get_text($iter);
         //That's the better one (that doesn't work as of 2006-03-04)
         return $this->get_model()->get_text($this->get_active_iter());
     }//public function get_active_text()
@@ -115,9 +140,9 @@ class Gtk2_IndexedComboBox extends GtkComboBox
 
 
     /**
-    *   Returns an array with all key/value pairs.
+    * Returns an array with all key/value pairs.
     *
-    *   @return array Array with key/value pairs in the model
+    * @return array Array with key/value pairs in the model
     */
     public function get_array()
     {
@@ -127,9 +152,9 @@ class Gtk2_IndexedComboBox extends GtkComboBox
 
 
     /**
-    *   Returns the default cell renderer.
+    * Returns the default cell renderer.
     *
-    *   @return GtkCellRenderer The default cell renderer
+    * @return GtkCellRenderer The default cell renderer
     */
     public function get_cell_renderer()
     {
@@ -139,11 +164,13 @@ class Gtk2_IndexedComboBox extends GtkComboBox
 
 
     /**
-    *   Inserts a single key/value pair at a certain position into the list.
+    * Inserts a single key/value pair at a certain position into the list.
     *
-    *   @param int      $nPosition  The position to insert the values at
-    *   @param string   $strId      The id to append
-    *   @param string   $strValue   The value to append
+    * @param int    $nPosition The position to insert the values at
+    * @param string $strId     The id to append
+    * @param string $strValue  The value to append
+    *
+    * @return void
     */
     public function insert($nPosition, $strId, $strValue)
     {
@@ -153,10 +180,12 @@ class Gtk2_IndexedComboBox extends GtkComboBox
 
 
     /**
-    *   Inserts an array (key and value) at a certain position into the list.
+    * Inserts an array (key and value) at a certain position into the list.
     *
-    *   @param int      $nPosition  The position to insert the array at
-    *   @param array    $arData     The array to append
+    * @param int   $nPosition The position to insert the array at
+    * @param array $arData    The array to append
+    *
+    * @return void
     */
     public function insert_array($nPosition, $arData)
     {
@@ -166,10 +195,12 @@ class Gtk2_IndexedComboBox extends GtkComboBox
 
 
     /**
-    *   Prepends a single key/value pair to the list.
+    * Prepends a single key/value pair to the list.
     *
-    *   @param string   $strId      The id to append
-    *   @param string   $strValue   The value to append
+    * @param string $strId    The id to append
+    * @param string $strValue The value to append
+    *
+    * @return void
     */
     public function prepend($strId, $strValue)
     {
@@ -179,9 +210,11 @@ class Gtk2_IndexedComboBox extends GtkComboBox
 
 
     /**
-    *   Prepends an array (key and value) at the beginning of the store
+    * Prepends an array (key and value) at the beginning of the store
     *
-    *   @param array    $arData     The array to append
+    * @param array $arData The array to append
+    *
+    * @return void
     */
     public function prepend_array($arData)
     {
@@ -191,11 +224,11 @@ class Gtk2_IndexedComboBox extends GtkComboBox
 
 
     /**
-    *   Removes the first entry with the given key from the list.
+    * Removes the first entry with the given key from the list.
     *
-    *   @param string   $strId      The key of the entry to remove
+    * @param string $strId The key of the entry to remove
     *
-    *   @return boolean     True if an entry has been deleted
+    * @return boolean True if an entry has been deleted
     */
     public function remove_key($strId)
     {
@@ -205,11 +238,11 @@ class Gtk2_IndexedComboBox extends GtkComboBox
 
 
     /**
-    *   Sets the model row with the given key as active.
+    * Sets the model row with the given key as active.
     *
-    *   @param string   $strId      The key of the entry to be made active
+    * @param string $strId The key of the entry to be made active
     *
-    *   @return boolean     True if an entry has been set active
+    * @return boolean True if an entry has been set active
     */
     public function set_active_key($strId)
     {
@@ -238,10 +271,12 @@ class Gtk2_IndexedComboBox extends GtkComboBox
 
 
     /**
-    *   Sets an array (key and value) as data into the store.
-    *   Clears any previous entries.
+    * Sets an array (key and value) as data into the store.
+    * Clears any previous entries.
     *
-    *   @param array    $arData     The array to set
+    * @param array $arData The array to set
+    *
+    * @return void
     */
     public function set_array($arData)
     {
@@ -256,61 +291,155 @@ class Gtk2_IndexedComboBox extends GtkComboBox
 
 
 
-    public function appendArray($arData) {
+    /**
+    * Appends an array (key and value) as data to the store.
+    *
+    * Alias of @see append_array().
+    *
+    * @param array $arData The array to append
+    *
+    * @return void
+    */
+    public function appendArray($arData)
+    {
         return $this->append_array($arData);
     }
 
 
 
-    public function getActiveKey() {
+    /**
+    * Returns the id of the active entry.
+    * If there is no active key, NULL will be returned.
+    *
+    * Alias of @see get_active_key().
+    *
+    * @return string The id/key of the selected entry
+    */
+    public function getActiveKey()
+    {
         return $this->get_active_key();
     }
 
 
 
-    public function getActiveText() {
+    /**
+    * Returns the string of the active entry.
+    * If there is no active entry, NULL will be returned.
+    *
+    * Alias of @see getActiveText();
+    *
+    * @return string The string value of the selected entry
+    */
+    public function getActiveText()
+    {
         return $this->get_active_text();
     }
 
 
 
-    public function getArray() {
+    /**
+    * Returns an array with all key/value pairs.
+    *
+    * Alias of @see get_array().
+    *
+    * @return array Array with key/value pairs in the model
+    */
+    public function getArray()
+    {
         return $this->get_array();
     }
 
 
 
-    public function getCellRenderer() {
+    /**
+    * Returns the default cell renderer.
+    *
+    * Alias of @see get_cell_renderer().
+    *
+    * @return GtkCellRenderer The default cell renderer
+    */
+    public function getCellRenderer()
+    {
         return $this->get_cell_renderer();
     }
 
 
 
-    public function insertArray($nPosition, $arData) {
+    /**
+    * Inserts an array (key and value) at a certain position into the list.
+    *
+    * Alias of @see insert_array().
+    *
+    * @param int   $nPosition The position to insert the array at
+    * @param array $arData    The array to append
+    *
+    * @return void
+    */
+    public function insertArray($nPosition, $arData)
+    {
         return $this->insert_array($nPosition, $arData);
     }
 
 
 
-    public function prependArray($arData) {
+    /**
+    * Prepends an array (key and value) at the beginning of the store
+    *
+    * Alias of @see prepend_array().
+    *
+    * @param array $arData The array to append
+    *
+    * @return void
+    */
+    public function prependArray($arData)
+    {
         return $this->prepend_array($arData);
     }
 
 
 
-    public function removeKey($strId) {
+    /**
+    * Removes the first entry with the given key from the list.
+    *
+    * Alias of @see remove_key().
+    *
+    * @param string $strId The key of the entry to remove
+    *
+    * @return boolean True if an entry has been deleted
+    */
+    public function removeKey($strId)
+    {
         return $this->remove_key($strId);
     }
 
 
 
-    public function setActiveKey($strId) {
+    /**
+    * Sets the model row with the given key as active.
+    *
+    * Alias of @see setActiveKey().
+    *
+    * @param string $strId The key of the entry to be made active
+    *
+    * @return boolean True if an entry has been set active
+    */
+    public function setActiveKey($strId)
+    {
         return $this->set_active_key($strId);
     }
 
 
 
-    public function setArray($arData) {
+    /**
+    * Sets an array (key and value) as data into the store.
+    * Clears any previous entries.
+    *
+    * @param array $arData The array to set
+    *
+    * @return void
+    */
+    public function setArray($arData)
+    {
         return $this->set_array($arData);
     }
 
