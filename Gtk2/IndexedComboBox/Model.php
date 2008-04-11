@@ -33,7 +33,7 @@ class Gtk2_IndexedComboBox_Model extends GtkListStore
     */
     public function __construct($arData = null)
     {
-        parent::__construct(Gtk::TYPE_STRING, Gtk::TYPE_STRING);
+        parent::__construct(Gobject::TYPE_STRING, Gobject::TYPE_STRING);
         if ($arData !== null) {
             $this->set_array($arData);
         }
