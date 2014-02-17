@@ -1,0 +1,31 @@
+{
+    "authors": [
+        {
+            "email": "cweiske@php.net",
+            "name": "Christian Weiske",
+            "role": "Lead"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "Gtk2_IndexedComboBox": "./"
+        }
+    },
+    "description": "More info available on: http://pear.php.net/package/Gtk2_IndexedComboBox",
+    "include-path": [
+        "./"
+    ],
+    "license": "LGPL",
+    "name": "pear/gtk2_indexedcombobox",
+    "support": {
+        "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=Gtk2_IndexedComboBox",
+        "source": "https://github.com/pear/Gtk2_IndexedComboBox"
+    },
+    "type": "library",
+    "require": {
+        "pear/pear_exception": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    }
+}
