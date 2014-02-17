@@ -8,7 +8,7 @@
     ],
     "autoload": {
         "psr-0": {
-            "Gtk2_IndexedComboBox": "./"
+            "Gtk2": "./"
         }
     },
     "description": "More info available on: http://pear.php.net/package/Gtk2_IndexedComboBox",
